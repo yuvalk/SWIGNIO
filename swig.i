@@ -1,5 +1,5 @@
 /* File : Swig.i */
-%module(directors="1") monitor
+%module(directors="1") example
 
 %include "std_string.i"
 %include "typemaps.i"
@@ -32,7 +32,7 @@
      %typemap(freearg) unsigned char* BUFFER ""
 //define end
 
-    %apply unsigned char* BUFFER {unsigned char * buffer}
+    %apply unsigned char* BUFFER {unsigned char* image_buffer}
 
 %{
   #include "interface.h"

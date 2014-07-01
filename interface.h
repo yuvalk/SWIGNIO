@@ -1,18 +1,27 @@
 #pragma once
+#include <Poco/Runnable.h>
+#include <Poco/Random.h>
+#include <Poco/Thread.h>
+
+namespace example {
+/* File : example.h */
 
 class IFrameCB {
-	newFrame();
-}
-
-class Monitor() {
 	public:
-		init (unsigned char * buffer);
-		register(IFrameCB * frameNotify);
-		void MainLoop();
+	virtual void newFrame(void)=0;
+};
 
+class Monitor : public Poco::Runnable {
+	public:
+		void mon_init(unsigned char* image_buffer);
+		void mon_register(IFrameCB* frameNotify);
+		void MainLoop();
+		virtual void run();
 	private:
+		Monitor * mon_this;
 		Poco::Thread main_thread;
 		unsigned char * buf;
-		IFrameCB * frameNotifier;
-
+		IFrameCB * frameNotifier = NULL;
+		void setMonRegister(IFrameCB* frameNotify);
+};
 }
