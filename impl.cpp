@@ -10,23 +10,26 @@ void Monitor::run() {
 	rnd.seed();
 
 	while (true) {
-		Poco::Thread::sleep(100); // * rnd.next(10));
-//		sprintf ((char *)buf, "hello %d", rnd.next(10));
+		Poco::Thread::sleep(rnd.next(1000));
+		sprintf ((char *)buf, "hello %d\n", rnd.next(10));
 		if (frameNotifier != NULL) frameNotifier->newFrame();
-//printf ("!%s!",buf);
 	}
 }
 
 void Monitor::mon_init (unsigned char* image_buffer) {
-printf ("!1!\n");
 	buf = image_buffer;
 
 	mon_this = new Monitor();
+	mon_this->setMonBuf(buf);
 	main_thread.start(*mon_this);
 }
 
 void Monitor::mon_register(IFrameCB* frameNotify) {
 	mon_this->setMonRegister(frameNotify);
+}
+
+void Monitor::setMonBuf(unsigned char* buffer) {
+	buf = buffer;
 }
 
 void Monitor::setMonRegister(IFrameCB* frameNotify) {

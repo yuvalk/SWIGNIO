@@ -20,8 +20,9 @@ class Monitor : public Poco::Runnable {
 	private:
 		Monitor * mon_this;
 		Poco::Thread main_thread;
-		unsigned char * buf;
+		unsigned char* buf;
 		IFrameCB * frameNotifier = NULL;
 		void setMonRegister(IFrameCB* frameNotify);
+		void setMonBuf(unsigned char* buffer);
 };
 }
